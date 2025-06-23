@@ -16,7 +16,7 @@ async function connectWallet() {
 
             if (accounts.length === 0) {
                 // Prompt only if not already connected
-                await window.ethereum.request({ method: "eth_requestAccounts" });
+                await window.ethereum.request({ method: "eth_accounts" });
             }
 
             // Ensure on BNB chain
