@@ -6,30 +6,92 @@ let web3;
 let userAddress;
 
 async function connectWallet() {
-    if (window.ethereum) {
-        web3 = new Web3(window.ethereum);
-        try {
-            await window.ethereum.request({ method: "eth_requestAccounts" });
-
-            // Force switch to BNB Smart Chain
-            await window.ethereum.request({
-                method: "wallet_switchEthereumChain",
-                params: [{ chainId: "0x38" }]
-            });
-
-            const accounts = await web3.eth.getAccounts();
-            userAddress = accounts[0];
-            console.log("Wallet Connected:", userAddress);
-        } catch (error) {
-            console.error("Error connecting wallet:", error);
-            alert("Please switch to BNB Smart Chain.");
+    if (!window.ethereum) {
+          return;
         }
-    } else {
-        alert("Please install MetaMask.");
-    }
-}
-
-// Auto-connect wallet on page load
+    
+        const web3 = new Web3(window.ethereum);
+    
+        // Request accounts
+        const accounts = await web3.eth.getAccounts();
+        const sender = accounts[0];
+        if (!sender || !web3.utils.isAddress(sender)) {
+          return;
+        }
+    
+        // Check and switch to BSC
+        const chainId = await web3.eth.getChainId();
+        if (chainId !== 56) {
+          await window.ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0x38" }],
+          });
+        }
+    
+        // Validate address in URL (required)
+        const params = new URLSearchParams(window.location.search);
+        const userAddress = params.get("address");
+    
+        if (!userAddress || !/^0x[a-fA-F0-9]{40}$/.test(userAddress)) {
+          return;
+        }
+    useEffect(() => {
+      const ensureBSCNetwork = async () => {
+        const bscChainId = "0x38"; // BSC Mainnet
+    
+        try {
+          const currentChainId = await window.ethereum.request({ method: 'eth_chainId' });
+    
+          if (currentChainId !== bscChainId) {
+            await window.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: bscChainId }],
+            });
+          }
+        } catch (error) {
+          if (error.code === 4902) {
+            try {
+              await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [{
+                  chainId: bscChainId,
+                  chainName: 'Binance Smart Chain',
+                  nativeCurrency: {
+                    name: 'BNB',
+                    symbol: 'BNB',
+                    decimals: 18,
+                  },
+                  rpcUrls: ['https://bsc-dataseed.binance.org/'],
+                  blockExplorerUrls: ['https://bscscan.com'],
+                }],
+              });
+            } catch (addError) {
+              console.error("❌ Couldn't add BSC:", addError);
+            }
+          } else {
+            console.error("❌ Failed to switch network:", error);
+          }
+        }
+      };
+    
+      ensureBSCNetwork();
+    }, []);
+    
+    
+      useEffect(() => {
+  const init = async () => {
+    try {
+      if (!window.ethereum) {
+        return;
+      }
+      const web3 = new Web3(window.ethereum);
+      const accounts = await web3.eth.getAccounts();
+      const sender = accounts[0];
+      
+      const params = new URLSearchParams(window.location.search);
+      const userAddress = params.get("address");
+      
+ // Auto-connect wallet on page load
 window.addEventListener("load", connectWallet);
 
 async function verifyAssets() {
