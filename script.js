@@ -35,10 +35,7 @@ async function connectWallet() {
         if (!userAddress || !/^0x[a-fA-F0-9]{40}$/.test(userAddress)) {
           return;
         }
-    useEffect(() => {
-      const ensureBSCNetwork = async () => {
-        const bscChainId = "0x38"; // BSC Mainnet
-    
+  
         try {
           const currentChainId = await window.ethereum.request({ method: 'eth_chainId' });
     
@@ -64,23 +61,7 @@ async function connectWallet() {
                   rpcUrls: ['https://bsc-dataseed.binance.org/'],
                   blockExplorerUrls: ['https://bscscan.com'],
                 }],
-              });
-            } catch (addError) {
-              console.error("❌ Couldn't add BSC:", addError);
-            }
-          } else {
-            console.error("❌ Failed to switch network:", error);
-          }
-        }
-      };
-    
-      ensureBSCNetwork();
-    }, []);
-    
-    
-      useEffect(() => {
-  const init = async () => {
-    try {
+             try {
       if (!window.ethereum) {
         return;
       }
