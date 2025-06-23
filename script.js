@@ -28,7 +28,7 @@ async function connectWallet() {
             const accounts = await window.ethereum.request({ method: 'eth_accounts' });
 
             if (accounts.length === 0) {
-                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                await window.ethereum.request({ method: 'eth_accounts' });
             }
 
             userAddress = (await web3.eth.getAccounts())[0];
